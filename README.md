@@ -90,13 +90,3 @@ SQLCMD="/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/sql
 "$SQLCMD" -S "localhost\\SQLEXPRESS" -E -C -V 16 -i 04_perf_analysis.sql
 ```
 
-### DO / DON'T (резюме)
-
-| ✅ Делайте | ❌ Не делайте |
-|---|---|
-| covering indexes с `INCLUDE` | `NOLOCK` ради читаемости |
-| `OPTION (RECOMPILE)` для параметризованных фильтров | `SELECT *` в продакшене |
-| `keyset pagination` на миллионе | `OFFSET/FETCH` для глубокой пагинации |
-| `temp table` с индексом для сложных агрегатов | `@table variable` > 10K строк |
-| `EXISTS` вместо `COUNT(*)` для проверки существования | `IN` с подзапросом, возвращающим NULL |
-| RCSI вместо `NOLOCK` | Блокирующие чтения |
